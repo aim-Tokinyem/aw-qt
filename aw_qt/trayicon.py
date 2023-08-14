@@ -103,9 +103,9 @@ class TrayIcon(QSystemTrayIcon):
             menu.addAction("Running in testing mode")  # .setEnabled(False)
             menu.addSeparator()
 
-        # openWebUIIcon = QIcon.fromTheme("open")
-        menu.addAction("Open Dashboard", lambda: open_webui(self.root_url))
-        menu.addAction("Open API Browser", lambda: open_apibrowser(self.root_url))
+        # # openWebUIIcon = QIcon.fromTheme("open")
+        # menu.addAction("Open Dashboard", lambda: open_webui(self.root_url))
+        # menu.addAction("Open API Browser", lambda: open_apibrowser(self.root_url))
 
         menu.addSeparator()
 
@@ -113,9 +113,9 @@ class TrayIcon(QSystemTrayIcon):
         self._build_modulemenu(modulesMenu)
 
         menu.addSeparator()
-        menu.addAction(
-            "Open log folder", lambda: open_dir(aw_core.dirs.get_log_dir(None))
-        )
+        # menu.addAction(
+        #     "Open log folder", lambda: open_dir(aw_core.dirs.get_log_dir(None))
+        # )
         menu.addSeparator()
 
         exitIcon = QIcon.fromTheme(
