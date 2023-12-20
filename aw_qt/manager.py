@@ -9,6 +9,7 @@ from time import sleep
 from typing import Optional, List, Hashable, Set, Iterable
 
 import aw_core
+from security import safe_command
 
 logger = logging.getLogger(__name__)
 
@@ -166,8 +167,7 @@ class Module:
 
         # There is a very good reason stdout and stderr is not PIPE here
         # See: https://github.com/ActivityWatch/aw-server/issues/27
-        self._process = subprocess.Popen(
-            exec_cmd, universal_newlines=True, startupinfo=startupinfo
+        self._process = safe_command.run(subprocess.Popen, exec_cmd, universal_newlines=True, startupinfo=startupinfo
         )
         self.started = True
 

@@ -13,6 +13,7 @@ from aw_core.log import setup_logging
 
 from .manager import Manager
 from .config import AwQtSettings
+from security import safe_command
 
 logger = logging.getLogger(__name__)
 
@@ -47,14 +48,14 @@ def main(
 ) -> None:
     # Since the .app can crash when started from Finder for unknown reasons, we send a syslog message here to make debugging easier.
     if platform.system() == "Darwin":
-        subprocess.call("syslog -s 'aw-qt started'", shell=True)
+        safe_command.run(subprocess.call, "syslog -s 'aw-qt started'", shell=True)
 
     setup_logging("aw-qt", testing=testing, verbose=verbose, log_file=True)
     logger.info("Started aw-qt...")
 
     # Since the .app can crash when started from Finder for unknown reasons, we send a syslog message here to make debugging easier.
     if platform.system() == "Darwin":
-        subprocess.call("syslog -s 'aw-qt successfully started logging'", shell=True)
+        safe_command.run(subprocess.call, "syslog -s 'aw-qt successfully started logging'", shell=True)
 
     # Create a process group, become its leader
     # TODO: This shouldn't go here

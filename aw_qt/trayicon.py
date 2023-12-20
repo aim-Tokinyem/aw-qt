@@ -21,6 +21,7 @@ from PyQt6.QtGui import QIcon
 import aw_core
 
 from .manager import Manager, Module
+from security import safe_command
 
 logger = logging.getLogger(__name__)
 
@@ -46,7 +47,7 @@ def get_env() -> Dict[str, str]:
 def open_url(url: str) -> None:
     if sys.platform == "linux":
         env = get_env()
-        subprocess.Popen(["xdg-open", url], env=env)
+        safe_command.run(subprocess.Popen, ["xdg-open", url], env=env)
     else:
         webbrowser.open(url)
 
@@ -66,10 +67,10 @@ def open_dir(d: str) -> None:
     if sys.platform == "win32":
         os.startfile(d)
     elif sys.platform == "darwin":
-        subprocess.Popen(["open", d])
+        safe_command.run(subprocess.Popen, ["open", d])
     else:
         env = get_env()
-        subprocess.Popen(["xdg-open", d], env=env)
+        safe_command.run(subprocess.Popen, ["xdg-open", d], env=env)
 
 
 class TrayIcon(QSystemTrayIcon):
